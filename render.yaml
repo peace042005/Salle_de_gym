@@ -1,0 +1,33 @@
+# Déploiement sur Render (offre gratuite) — voir README, section « Déploiement »
+services:
+  - type: web
+    name: fitsense
+    runtime: docker
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: APP_NAME
+        value: FitSense
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_LOCALE
+        value: fr
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: MAIL_MAILER
+        value: log
+      - key: DEMO_RESET_ON_START
+        value: "true"
+      # Clés FedaPay du mode test (sandbox) : à saisir dans le tableau de bord Render
+      - key: FEDAPAY_PUBLIC_KEY
+        sync: false
+      - key: FEDAPAY_SECRET_KEY
+        sync: false
+      - key: FEDAPAY_ENVIRONMENT
+        value: sandbox
+      - key: GOOGLE_MAPS_KEY
+        sync: false
