@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="card-header bg-light mb-5">
         <div class="col-lg-3">
-            <button href="" type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#showBecomeManagerModal">Devenir menbre</button>
+            <button href="" type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#showBecomeManagerModal">Devenir gérant</button>
             @include('site.private.dashboad.user.modals.become-manager-modal')
         </div>
     </div>
@@ -20,7 +20,7 @@
                 <h5 class="card-title">Mon abonnement</h5>
             </div>
             <div class="card-body">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore in nemo omnis accusamus deserunt minus eveniet maiores itaque a quasi officiis, optio blanditiis voluptate. Voluptatum veniam delectus non eum suscipit?</p>
+                
 
                 <div class="table">
                     <div class="table-responsive">
@@ -42,7 +42,7 @@
                                     <td class="text-start"></td>
                                     <td class="text-start">{{ $subscription->pricing->name }}</td>
                                     <td class="text-start">{{ $subscription->pricing->duration }} jours</td>
-                                    <td class="text-start">{{ $subscription->room->name }} jours</td>
+                                    <td class="text-start">{{ $subscription->room->name }}</td>
                                     <td class="text-start">@include('shared.format.date', ['value' => $subscription->created_at])</td>
                                     <td class="text-end">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showSubscriptionDetailsModal{{$subscription->id}}">Consulter</button>
@@ -65,7 +65,7 @@
                 <h5 class="card-title">Mes achats</h5>
             </div>
             <div class="card-body">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore in nemo omnis accusamus deserunt minus eveniet maiores itaque a quasi officiis, optio blanditiis voluptate. Voluptatum veniam delectus non eum suscipit?</p>
+                
 
                 <div class="table">
                     <div class="table-responsive">

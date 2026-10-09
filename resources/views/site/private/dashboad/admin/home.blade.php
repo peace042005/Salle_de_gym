@@ -1,7 +1,7 @@
 @extends('layouts.dash')
 
 @section('title', 'Admin dashboad')
-@section('headerTitle', 'ACCEUIL')
+@section('headerTitle', 'ACCUEIL')
 
 @section('content')
 <div class="container-fluid">

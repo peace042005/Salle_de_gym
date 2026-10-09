@@ -73,7 +73,7 @@
                 <h5 class="card-title">List des achats d'équipements</h5>
             </div>
             <div class="card-body">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore in nemo omnis accusamus deserunt minus eveniet maiores itaque a quasi officiis, optio blanditiis voluptate. Voluptatum veniam delectus non eum suscipit?</p>
+                
 
                 <div class="table">
                     <div class="table-responsive">

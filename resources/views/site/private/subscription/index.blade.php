@@ -69,7 +69,7 @@
                 <h5 class="card-title">List des abonnements</h5>
             </div>
             <div class="card-body">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore in nemo omnis accusamus deserunt minus eveniet maiores itaque a quasi officiis, optio blanditiis voluptate. Voluptatum veniam delectus non eum suscipit?</p>
+                
 
                 <div class="table">
                     <div class="table-responsive">
@@ -106,7 +106,7 @@
                                     </td>
                                     <td class="text-start">{{ $subscription->pricing->name }}</td>
                                     <td class="text-start">{{ $subscription->pricing->duration }} jours</td>
-                                    <td class="text-start">{{ $subscription->room->name }} jours</td>
+                                    <td class="text-start">{{ $subscription->room->name }}</td>
                                     <td class="text-start">@include('shared.format.date', ['value' => $subscription->created_at])</td>
                                     <td class="text-end">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#showDetailsModal{{$subscription->user->id}}">Détails</button>

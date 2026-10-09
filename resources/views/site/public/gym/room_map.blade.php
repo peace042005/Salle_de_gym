@@ -7,8 +7,8 @@
     <div class="container ">
         <div class="d-flex justify-content-center row">
             <div class="text-center mt-4">
-                <h1>Bienvenu sur {{env('APP_NAME')}}</h1>
-                <p>Notre platforme vous propose nos différentes salles de gym, ainsi que leur offres et services.</p>
+                <h1>Bienvenue sur {{ config('app.name') }}</h1>
+                <p>Notre plateforme vous présente les salles de sport près de chez vous, leurs offres et leurs services.</p>
             </div>
         </div>
 

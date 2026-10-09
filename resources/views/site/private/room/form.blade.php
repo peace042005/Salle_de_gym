@@ -173,7 +173,7 @@ d'une nouvelle salle")
 
 @push('script')
 
-    <script src="http://maps.google.com/maps/api/js?key=AIzaSyAUfKZZCI4r4AYrpRCTmovABlDBIK_9JQM&libraries=places&sensor=true"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google_maps.key') }}&libraries=places"></script>
     <script src="{{ asset('template/map.min.js') }}"></script>
 
     <script>

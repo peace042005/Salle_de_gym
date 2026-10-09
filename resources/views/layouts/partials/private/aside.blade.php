@@ -59,7 +59,7 @@
                 <li>
                     <a href="{{ route('user.dashboad') }}" aria-expanded="false">
                         <i class="fas fa-home"></i>
-                        <span class="nav-text">Acceuil</span>
+                        <span class="nav-text">Accueil</span>
                     </a>
                 </li>
                 <!-- <li>
