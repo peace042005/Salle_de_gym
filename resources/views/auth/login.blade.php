@@ -52,7 +52,6 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <p class="text-end"><a href="{{ route('doRessetPassword') }}">Mot de passe oublié</a></p>
                             </div>
                         </div>
 

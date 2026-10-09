@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\RessetPasswordController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Billing\BillingController;
 use App\Http\Controllers\Billing\PurchaseController;
@@ -30,15 +29,11 @@ Route::post('/auth/login', [LoginController::class, 'store'])->name('doLogin');
 // email verification
 Route::get('email/verify/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
 Route::get('email/resend/{id}', [VerifyEmailController::class, 'resend'])->name('verification.resend');
-// password resset
-Route::get('/auth/password-resset', [RessetPasswordController::class, 'index'])->name('ressetPassword');
-Route::post('/auth/password-resset', [RessetPasswordController::class, 'store'])->name('doRessetPassword');
 
 // application public routes
 Route::get('/', [WelcomeController::class, 'welcome'])->name('app.welcome');
 Route::get('rooms/map', [WelcomeController::class, 'map'])->name('app.rooms.map');
 Route::get('rooms/{id}/details', [WelcomeController::class, 'overview'])->name('app.rooms.overview');
-Route::get('rooms/{id}/subscription', [WelcomeController::class, 'subscription'])->name('app.rooms.subscription');
 
 /* monetisation */
 Route::get('fedapay/checkout', [BillingController::class, 'useFedapay'])->name('fedapay.checkout');
@@ -51,11 +46,9 @@ Route::middleware(AdminManagerMiddleware::class)->prefix('private')->name('manag
 
         // purchases
         Route::get('purchases', [PurchaseController::class, 'index'])->name('purchase.index');
-        Route::get('purchases/{id}', [PurchaseController::class, 'show'])->name('purchase.show');
 
         // subscriptions
         Route::get('subscriptions', [SubscriptionController::class, 'index'])->name('subscription.index');
-        Route::get('subscriptions/{id}', [SubscriptionController::class, 'show'])->name('subscription.show');
     }
 );
 
