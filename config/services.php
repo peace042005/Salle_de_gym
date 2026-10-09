@@ -31,4 +31,17 @@ return [
         ],
     ],
 
+    'google_maps' => [
+        // Clé de l'API Google Maps JavaScript (à restreindre au domaine du site)
+        'key' => env('GOOGLE_MAPS_KEY'),
+    ],
+
+    'fedapay' => [
+        'public_key' => env('FEDAPAY_PUBLIC_KEY'),
+        'secret_key' => env('FEDAPAY_SECRET_KEY'),
+        'environment' => env('FEDAPAY_ENVIRONMENT', 'sandbox'),
+        // Prix (FCFA) pour devenir gérant de salle
+        'manager_fee' => env('FEDAPAY_MANAGER_FEE', 30000),
+    ],
+
 ];

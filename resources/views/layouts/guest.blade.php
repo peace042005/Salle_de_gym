@@ -108,7 +108,6 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <p class="text-end"><a href="{{ route('doRessetPassword') }}">Mot de passe oublié</a></p>
                                     </div>
                                 </div>
 
@@ -178,7 +177,7 @@
         option, userId, pricingId, roomId, outfitId
     ) {
         let widget = FedaPay.init({
-            public_key: '<?php echo (env('FEDAPAY_PUBLIC_KEY')); ?>',
+            public_key: '{{ config('services.fedapay.public_key') }}',
             transaction: {
                 amount: transAmount,
                 description: 'Acheter mon produit',

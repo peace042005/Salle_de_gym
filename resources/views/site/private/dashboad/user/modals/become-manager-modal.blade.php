@@ -2,12 +2,12 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-light">
-                <h5 class="modal-title">Changer de status : Devenir un MAGANER</h5>
+                <h5 class="modal-title">Devenir gérant de salle</h5>
                 <button class="btn-close" data-bs-dismiss="modal" aria-label="close"><span aria-hidden="true"></span></button>
             </div>
 
             <div class="modal-body ">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio corporis deleniti aliquid? Praesentium architecto pariatur tenetur harum veniam voluptatem sint. Quam, quod labore tenetur consectetur culpa in accusamus temporibus rem!</p>
+                <p>En devenant gérant, vous pouvez publier vos salles de sport et vos équipements sur la plateforme, et suivre les abonnements et les achats de vos clients.</p>
             </div>
 
             <div class="modal-footer bg-light justify-content-center">
@@ -15,7 +15,7 @@
                     <i class="fas fa-times-circle"></i> Annuler la transaction
                 </button>
                 <button onclick="payement(
-                        '30000', 
+                        '{{ config('services.fedapay.manager_fee') }}', 
                         '<?php echo (auth()->user()->email); ?>', 
                         '<?php echo (auth()->user()->last_name); ?>', 
                         '<?php echo (auth()->user()->first_name); ?>',
@@ -25,7 +25,7 @@
                         'null',
                         'null'
                     )" class="btn btn-success">
-                    <i class="fas fa-check-circle"></i> Payer 30000 FCFA
+                    <i class="fas fa-check-circle"></i> Payer {{ config('services.fedapay.manager_fee') }} FCFA
                 </button>
             </div>
 
