@@ -31,9 +31,8 @@ class LoginController extends Controller
                 'loginErrorMessage' => 'Votre adresse mail ou votre mot de passe est incorrect'
             ]);
         } else {
-            $user = User::where('email', $validated['email'])->first();
-
-            Auth::login($user);
+            // Nouvelle session après connexion (protection contre la fixation de session)
+            $request->session()->regenerate();
 
             if( $request->modal == "true" ) {
                 return redirect()->back();

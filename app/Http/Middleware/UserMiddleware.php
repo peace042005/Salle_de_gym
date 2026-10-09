@@ -16,6 +16,11 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Visiteur non connecté : page de connexion
+        if (! Auth::check()) {
+            return redirect()->route('login');
+        }
+
         if( Auth::user() &&  Auth::user()->role === "user" ) {
             return $next($request);
         }

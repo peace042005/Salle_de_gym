@@ -16,7 +16,8 @@ class PricingController extends Controller
      */
     public function __construct()
     {
-        $this->authenticatedUser = Auth::user();
+        // Visiteur non connecté : redirection vers la page de connexion
+        $this->authenticatedUser = Auth::user() ?? abort(redirect()->route('login'));
     }
 
     /**

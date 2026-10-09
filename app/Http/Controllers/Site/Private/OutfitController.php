@@ -21,7 +21,8 @@ class OutfitController extends Controller
     public function __construct(FileService $fileService)
     {
         $this->fileService = $fileService;
-        $this->authenticatedUser = Auth::user();
+        // Visiteur non connecté : redirection vers la page de connexion
+        $this->authenticatedUser = Auth::user() ?? abort(redirect()->route('login'));
     }
 
     /**
@@ -35,8 +36,10 @@ class OutfitController extends Controller
         if( $this->authenticatedUser->role == "admin") {
             // do filtering
             if (isset($search)) {
-                $outfitList = Outfit::where('name', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%')
+                $outfitList = Outfit::where(function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%')
+                            ->orWhere('description', 'like', '%' . $search . '%');
+                    })
                     ->orderBy('id', 'desc')
                     ->paginate();
             } else {
@@ -46,8 +49,10 @@ class OutfitController extends Controller
             // do filtering
             if (isset($search)) {
                 $outfitList = $this->authenticatedUser->outfits()
-                    ->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->where(function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%')
+                            ->orWhere('description', 'like', '%' . $search . '%');
+                    })
                     ->orderBy('id', 'desc')
                     ->paginate();
             } else {
@@ -104,7 +109,7 @@ class OutfitController extends Controller
     public function show($id)
     {
         return view('site.private.outfit.show', [
-            'outfit' => Outfit::find($id)
+            'outfit' => $this->findOutfit($id)
         ]);
     }
     
@@ -124,7 +129,7 @@ class OutfitController extends Controller
 
         // dd($validatedData);
         try{
-            $outfit = Outfit::find($id);
+            $outfit = $this->findOutfit($id);
 
             // fetch the old image path
             $newCoverImage = $outfit->cover_image;
@@ -159,7 +164,7 @@ class OutfitController extends Controller
     public function destroy($id)
     {
         try{
-            $outfit = Outfit::find($id);
+            $outfit = $this->findOutfit($id);
 
             // first delete the file image
             $this->fileService->delete($outfit->cover_image);
@@ -176,5 +181,17 @@ class OutfitController extends Controller
         } catch (\Exception $e) {
             // Handle transaction failure
         }
+    }
+
+    /**
+     * Récupère un équipement : l'administrateur accède à tout, un gérant uniquement à ce qu'il a créé.
+     */
+    private function findOutfit($id): Outfit
+    {
+        if ($this->authenticatedUser->role === 'admin') {
+            return Outfit::findOrFail($id);
+        }
+
+        return Outfit::where('user_id', $this->authenticatedUser->id)->findOrFail($id);
     }
 }

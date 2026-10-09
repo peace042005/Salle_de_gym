@@ -18,7 +18,8 @@ class SubscriptionController extends Controller
      */
     public function __construct()
     {
-        $this->authenticatedUser = Auth::user();
+        // Visiteur non connecté : redirection vers la page de connexion
+        $this->authenticatedUser = Auth::user() ?? abort(redirect()->route('login'));
     }
     
     /**
@@ -96,17 +97,4 @@ class SubscriptionController extends Controller
         // DB::commit();
     }
 
-    /**
-     * 
-     */
-    public function show($id)
-    {
-        try {
-            return view('site.private.subscription.show', [
-                "subscription" => Subscription::findOrFail($id)
-            ]);
-        } catch (\Exception $e) {
-            $e->getMessage();
-        }
-    }
 }

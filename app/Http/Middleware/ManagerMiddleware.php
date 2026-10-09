@@ -16,6 +16,11 @@ class ManagerMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Visiteur non connecté : page de connexion
+        if (! Auth::check()) {
+            return redirect()->route('login');
+        }
+
         if( Auth::user() &&  Auth::user()->role === "manager" ) {
             return $next($request);
         }

@@ -23,7 +23,8 @@ class RoomController extends Controller
     public function __construct(FileService $fileService)
     {
         $this->fileService = $fileService;
-        $this->authenticatedUser = Auth::user();
+        // Visiteur non connecté : redirection vers la page de connexion
+        $this->authenticatedUser = Auth::user() ?? abort(redirect()->route('login'));
     }
 
 
@@ -35,8 +36,10 @@ class RoomController extends Controller
         if ($this->authenticatedUser->role == "admin") {
             // do filtering
             if (isset($search)) {
-                $roomLists = Room::where('name', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%')
+                $roomLists = Room::where(function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%')
+                            ->orWhere('description', 'like', '%' . $search . '%');
+                    })
                     ->orderBy('id', 'desc')
                     ->paginate();
             } else {
@@ -46,8 +49,10 @@ class RoomController extends Controller
             // do filtering
             if (isset($search)) {
                 $roomLists = $this->authenticatedUser->rooms()
-                    ->where('name', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%')
+                    ->where(function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%')
+                            ->orWhere('description', 'like', '%' . $search . '%');
+                    })
                     ->orderBy('id', 'desc')
                     ->paginate();
             } else {
@@ -132,7 +137,7 @@ class RoomController extends Controller
     public function show($id)
     {
         return view('site.private.room.show', [
-            'room' => Room::find($id)
+            'room' => $this->findRoom($id)
         ]);
     }
 
@@ -148,7 +153,7 @@ class RoomController extends Controller
         }
 
         return view('site.private.room.form', [
-            'room' => Room::find($id),
+            'room' => $this->findRoom($id),
             'outfits' => $outfitsList,
             'pricings' => Pricing::pluck('name', 'id'),
         ]);
@@ -172,7 +177,7 @@ class RoomController extends Controller
         ]);
 
         // dd($validatedData);
-        $room = Room::find($id);
+        $room = $this->findRoom($id);
 
         // next update the connected the room & pricing on outfits
         $room->outfits()->sync($validatedData['outfits']);
@@ -215,7 +220,7 @@ class RoomController extends Controller
 
     public function destroy($id)
     {
-        $room = Room::find($id);
+        $room = $this->findRoom($id);
 
         // 1. first delete the file images
         $this->fileService->delete([$room->cover_image, $room->overview_image]);
@@ -230,5 +235,17 @@ class RoomController extends Controller
         // 4. finaly redirect with success msg
         toast("La salle a été supprimée avec succes", 'success');
         return redirect()->back();
+    }
+
+    /**
+     * Récupère une salle : l'administrateur accède à tout, un gérant uniquement à ce qu'il a créé.
+     */
+    private function findRoom($id): Room
+    {
+        if ($this->authenticatedUser->role === 'admin') {
+            return Room::findOrFail($id);
+        }
+
+        return Room::where('user_id', $this->authenticatedUser->id)->findOrFail($id);
     }
 }

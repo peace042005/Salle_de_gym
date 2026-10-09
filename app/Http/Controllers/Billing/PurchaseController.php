@@ -19,7 +19,8 @@ class PurchaseController extends Controller
      */
     public function __construct()
     {
-        $this->authenticatedUser = Auth::user();
+        // Visiteur non connecté : redirection vers la page de connexion
+        $this->authenticatedUser = Auth::user() ?? abort(redirect()->route('login'));
     }
     
     /**
@@ -77,19 +78,6 @@ class PurchaseController extends Controller
         // DB::commit();
     }
 
-    /**
-     * 
-     */
-    public function show($id)
-    {
-        try {
-            return view('site.private.purchase.show', [
-                "purchase" => Purchase::findOrFail($id)
-            ]);
-        } catch (\Exception $e) {
-            $e->getMessage();
-        }
-    }
 
     /**
      * 
