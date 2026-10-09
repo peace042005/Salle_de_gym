@@ -2,7 +2,7 @@
 
 Plateforme web qui référence des **salles de sport** : les visiteurs trouvent une salle sur la carte et s'y abonnent, les **gérants** publient leurs salles et vendent des équipements, et un **administrateur** gère les formules d'abonnement. Les paiements passent par **FedaPay** (Mobile Money, carte bancaire).
 
-> **Démo en ligne :** _lien à ajouter après le déploiement_
+> **Démo en ligne :** https://fitsense-3tot.onrender.com
 > L'hébergement gratuit met l'application en veille : le premier chargement peut prendre environ une minute.
 
 ## Comptes de démonstration
@@ -76,17 +76,8 @@ L'application est alors disponible sur http://localhost:8000.
 
 Pour tester les paiements, créer un compte sur [sandbox.fedapay.com](https://sandbox.fedapay.com) et renseigner `FEDAPAY_PUBLIC_KEY` et `FEDAPAY_SECRET_KEY` (clés du mode test) dans `.env`. La carte du formulaire des salles utilise `GOOGLE_MAPS_KEY` (clé à restreindre au domaine du site).
 
-## Déploiement (Render, offre gratuite)
 
-Le dépôt contient un `Dockerfile` et un fichier `render.yaml`.
-
-1. Sur [render.com](https://render.com) : **New → Blueprint**, puis choisir ce dépôt.
-2. Render demande les clés FedaPay du mode test et la clé Google Maps : les coller (ou laisser vide, le site fonctionne sans le paiement ni la carte).
-3. Ouvrir l'URL fournie une fois le déploiement terminé.
-
-Au démarrage, `docker/start.sh` génère la clé de l'application, met en cache la configuration et recrée la base SQLite avec les données de démonstration.
-
-## Auteure
+## Auteur
 
 **Marcella Chanhoun** — [GitHub](https://github.com/peace042005)
 
