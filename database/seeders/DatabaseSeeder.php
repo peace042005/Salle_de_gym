@@ -22,8 +22,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
             'role' => 'admin',
-            'phone_number' => fake()->phoneNumber(),
-            'birth_date' => fake()->dateTimeBetween('-60 years', '-24 years'),
+            'phone_number' => '+229 01 90 00 00 01',
+            'birth_date' => '1985-03-12',
             'password' => bcrypt('123')
         ]);
 
@@ -33,8 +33,8 @@ class DatabaseSeeder extends Seeder
             'email' => 'manager@manager.com',
             'email_verified_at' => now(),
             'role' => 'manager',
-            'phone_number' => fake()->phoneNumber(),
-            'birth_date' => fake()->dateTimeBetween('-60 years', '-24 years'),
+            'phone_number' => '+229 01 90 00 00 02',
+            'birth_date' => '1990-07-24',
             'password' => bcrypt('123')
         ]);
 
@@ -44,15 +44,15 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@user.com',
             'email_verified_at' => now(),
             'role' => 'user',
-            'phone_number' => fake()->phoneNumber(),
-            'birth_date' => fake()->dateTimeBetween('-60 years', '-24 years'),
+            'phone_number' => '+229 01 90 00 00 03',
+            'birth_date' => '1998-11-05',
             'password' => bcrypt('123')
         ]);
 
         $pricings = [
             [
                 'name' => "Offre 1: Abonnement d'une année (365 jours)",
-                'duration' => 360,
+                'duration' => 365,
                 'price' => 120000,
                 'user_id'  => $admin->id,
             ],
@@ -80,8 +80,7 @@ class DatabaseSeeder extends Seeder
             Pricing::create($item);
         }
 
-        // User::factory(12)->create();
-        // Outfit::factory(70)->create();
-        // Room::factory(20)->create();
+        // Salles, équipements, un abonnement et un achat de démonstration
+        $this->call(DemoSeeder::class);
     }
 }
